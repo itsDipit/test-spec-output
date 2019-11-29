@@ -1,0 +1,2919 @@
+
+{
+  "openapi" : "3.0.1",
+  "security" : [ {
+    "zetaTGetAllAccountHoldersResponseokenBasedAuth" : [ ]
+  } ],
+  "paths" : {
+      "/api/v1/ifi/{ifiID}/individuals": {
+      "get": {
+        "tags": [
+          "Individuals"
+        ],
+        "summary": "Get Account Holders",
+        "description" : "Returns list of Individual Account Holders.",
+        "operationId": "getAccountHoldersUsingGET_1",
+        "parameters": [
+          {
+            "name": "ifiID",
+            "in": "path",
+            "description": "ID of the IFI (on-boarded organization) under which the Individual Account Holders are being retrieved.",
+            "required": true,
+            "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/GetAllAccountHoldersResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individuals/{individualID}": {
+      "get": {
+        "tags": [
+          "Individuals"
+        ],
+        "summary": "Get Account Holders by individualID",
+        "description": "Returns Individual Account Holders by individualID.",
+        "operationId": "getAccountHoldersUsingGET",
+        
+        "parameters": [
+          {
+            "name": "ifiID",
+            "in": "path",
+            "description": "ID of the IFI (on-boarded organization) under which the Individual Account Holders are being retrieved by individualID.",
+            "required": true,
+            "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+          },
+          {
+            "name": "individualID",
+            "in": "path",
+            "description": "ID of the individuals being retrieved.",
+            "required": true,
+            "schema" : {
+            "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/AccountHolder"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/vectors" : {
+      "post" : {
+        "tags" : [ "Vector" ],
+        "summary" : "Add Vector Request",
+        "description" : "Returns Vector object on successful creation of the object. This request is non-idempotent.",
+        "operationId" : "createVector",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the vector is being created.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the vector is being created.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateVectorRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Add Vector",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VectorResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/editIndividual" : {
+      "post" : {
+        "tags" : [ "Individual Application" ],
+        "summary" : "Edit Individual Application Request",
+        "description" : "Returns individual application object on successful creation of the object. This request is non-idempotent.",
+        "operationId" : "createEditAccountHolderApplication",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which editIndividual object is created for editing the Application Request.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/EditIndividualApplicationRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Create Individual Application",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountHolderApplicationResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}" : {
+      "get" : {
+        "tags" : [ "Individual Application" ],
+        "summary" : "Get Individual Application Request",
+        "description" : "Returns Individual Application Response object. Individual Application ID should be UUID.",
+        "operationId" : "getAccountHolderApplicationByID",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Individual Application Request is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Individual Application Request is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Individual Application Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountHolderApplicationResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Individual Application" ],
+        "summary" : "Update Individual Application Request",
+        "description" : "Returns Individual Application Response object. Individual Application ID should be UUID.",
+        "operationId" : "updateAccountHolder_1",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Individual Application Request is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Individual Application Request is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateAccountHolderApplicationRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Individual Application Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountHolderApplicationResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Individual Application" ],
+        "summary" : "Delete Individual Application Request",
+        "description" : "Deletes a Individual Application object.",
+        "operationId" : "deleteAccountHolderApplication",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Individual Application Request is being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Individual Application Request is being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Empty object with 200 status",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/vectors/{vectorID}" : {
+      "get" : {
+        "tags" : [ "Vector" ],
+        "summary" : "Get Vector Request",
+        "description" : "Returns Vector Response object.",
+        "operationId" : "getVectorByID",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Vector Request is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Vector Request is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "vectorID",
+      "description" : "ID of the Vector for which details are being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Vector Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VectorResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Vector" ],
+        "summary" : "Update Vector Request",
+        "description" : "Returns Vector Response object.",
+        "operationId" : "updateVector",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Vector Request is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "vectorID",
+      "description" : "ID of the Vector for which details are being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Vector Request is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateVectorRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Vector Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VectorResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Vector" ],
+        "summary" : "Delete Vector Request",
+        "description" : "Deletes a Vector object by Vector ID for a specific Individual Application under a particular IFI.",
+        "operationId" : "deleteVector",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Vector Request is being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Vector Request is being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "vectorID",
+      "description" : "ID of the Vector being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Empty object with 200 status",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/kycStatus/{newStatus}" : {
+      "put" : {
+        "tags" : [ "KycStatus" ],
+        "summary" : "Update Kyc Status Request",
+        "description" : "Returns Kyc Status Response object.",
+        "operationId" : "updateKycStatus",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the KYC Status Request is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the KYC Status Request is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "newStatus",
+      "description" : "New status being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateKycStatusRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Kyc Status Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/KYCDetailsResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/customFields" : {
+      "get" : {
+        "tags" : [ "Individual Application Custom Field" ],
+        "summary" : "Get custom fields",
+        "description" : "Returns custom field details by Individual Application ID for a particular IFI",
+        "operationId" : "getCustomFields",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Individual Application Custom Field is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Individual Application Custom Field is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Get customFields",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CustomFieldResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Individual Application Custom Field" ],
+        "summary" : "Update custom field key value pair",
+        "description" : "Update custom field details by Individual Application ID for a particular IFI",
+        "operationId" : "updateCustomKeyValuePair",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Individual Application Custom Field key-value pair is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Individual Application Custom Field key-value pair is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateCustomFieldRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Updated account holder",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CustomFieldResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Individual Application Custom Field" ],
+        "summary" : "Add custom field",
+        "description" : "Add custom fields for an Account Holder",
+        "operationId" : "addAccountHolderCustomFields",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Individual Application Custom Field is being added.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Individual Application Custom Field is being added.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AddCustomFieldRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Add custom fields for account holder",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CustomFieldResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/uploadDocumentEndpoint" : {
+      "get" : {
+        "tags" : [ "Document Upload Endpoint" ],
+        "summary" : "Upload Document",
+        "description" : "Upload Document",
+        "operationId" : "uploadDocumentEndpoint",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the uploaded document is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the uploaded document is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "maxUploadSize",
+      "description" : "Maximum size of uploaded document being retrieved.",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "setContentDisposition",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Upload Document",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UploadDocumentEndpointResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/documents" : {
+      "get" : {
+        "tags" : [ "Document" ],
+        "summary" : "Get Document Request",
+        "description" : "Returns list of Document Response object.",
+        "operationId" : "getDocumentList",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Document List is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the uploaded document is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "status",
+      "description" : "ID of the Application for which the uploaded document is being retrieved.",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "PROCESSING", "PENDING_ON_USER_ACTION", "IN_REVIEW", "REJECTED", "APPROVED", "DELETED" ]
+          }
+        }, {
+          "name" : "pageNumber",
+      "description" : "Page being requested.",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "pageSize",
+      "description" : "Defines the number of items to be displayed on one page.",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Document list Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DocumentListResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Document" ],
+        "summary" : "Create a Document for Individual Application Request",
+        "description" : "Returns CreateDocumentRequest object on successful creation of the object. This request is non-idempotent.",
+        "operationId" : "createDocument",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Document for Individual Application Request is being created.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Document for Individual Application Request is being created.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateDocumentRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Create Document",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DocumentResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/documents/{documentID}" : {
+      "get" : {
+        "tags" : [ "Document" ],
+        "summary" : "Get Document Request",
+        "description" : "Returns CreateDocumentRequest object on successful creation of the object. document id should be UUID.",
+        "operationId" : "getDocumentByID",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Document Request is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Document Request is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "documentID",
+      "description" : "ID of the Document for which required details are being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Get Document Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DocumentResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Document" ],
+        "summary" : "Update Document Request",
+        "description" : "Returns Document Response object. document ID should be UUID.",
+        "operationId" : "updateDocument",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Document Request is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Document Request is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "documentID",
+      "description" : "ID of the Document for which the required details are being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateDocumentRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Document Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DocumentResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Document" ],
+        "summary" : "Delete document Request",
+        "description" : "Deletes a document object.",
+        "operationId" : "deleteDocument",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Document Request is being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Document Request is being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "documentID",
+      "description" : "ID of the Document for which the required details are being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Empty object with 200 status",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/documents/{documentID}/status/{newStatus}" : {
+      "put" : {
+        "tags" : [ "Document" ],
+        "summary" : "Update Document Request status",
+        "description" : "Returns Document Response object. Document ID should be UUID.",
+        "operationId" : "updateDocumentStatus",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Document Request Status is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Document Request Status is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "documentID",
+      "description" : "ID of the Document for which the required details are being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "newStatus",
+      "description" : "New Status to be updated in Document Request.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Document Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DocumentResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/tags" : {
+      "get" : {
+        "tags" : [ "Tag" ],
+        "summary" : "Get Tags",
+        "description" : "Get tags",
+        "operationId" : "getApplicationTags",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Application tags is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Application tags is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Get Tags",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagListResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Tag" ],
+        "summary" : "Add tag to a application",
+        "description" : "Add tag to a application",
+        "operationId" : "addApplicationTag",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the tag to an Application is being added.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the tag is being added.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AddTagRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Add tag to a application",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/tags/{tagID}" : {
+      "get" : {
+        "tags" : [ "Tag" ],
+        "summary" : "Get Tag by ID",
+        "description" : "Get Tag by ID",
+        "operationId" : "getApplicationTagDetailsByID",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Application tag details is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the tag details is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "tagID",
+      "description" : "ID of the Tag for which the details are being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Get Tag by ID",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Tag" ],
+        "summary" : "Update tag",
+        "description" : "Update AetherTag",
+        "operationId" : "updateApplicationTag",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Application Tag is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Tag is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "tagID",
+      "description" : "ID of the Tag for which details are being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateTagRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Update AetherTag",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Tag" ],
+        "summary" : "Delete Tag by ID",
+        "description" : "Delete Tag by ID",
+        "operationId" : "deleteApplicationTagByID",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Application Tag is being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Tag details are being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "tagID",
+      "description" : "ID of the Tag being deleted.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Delete Tag by ID",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TagResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/applications" : {
+      "get" : {
+        "tags" : [ "Individual Application" ],
+        "summary" : "Get Individual Application Request",
+        "description" : "Returns list of Individual Application Response object.",
+        "operationId" : "getAccountHolderList",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the list of Individual Application Request is being retrieved.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "status",
+      "description" : "Status of the Individual Application Request being retrieved.",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "PROCESSING", "PENDING_ON_USER_ACTION", "IN_REVIEW", "REJECTED", "APPROVED", "DELETED" ]
+          }
+        }, {
+          "name" : "pageNumber",
+      "description" : "Page being requested.",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "pageSize",
+      "description" : "Defines the number of items to be displayed on one page.",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        
+        "responses" : {
+          "default" : {
+            "description" : "Individual Application Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountHolderApplicationListResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    "/api/v1/ifi/{ifiID}/applications/newIndividual" : {
+      "post" : {
+        "tags" : [ "Individual Application" ],
+        "summary" : "Create Individual Account Holder",
+        "description" : "Returns account holder id on successful creation of the object. This request is non-idempotent.",
+        "operationId" : "createAddAccountHolderApplication",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Individual Application Request is being created.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateAccountHolderApplicationRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Create Individual Application",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountHolderApplicationResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    },
+    
+    "/api/v1/ifi/{ifiID}/individualApplications/{applicationID}/status/{newStatus}" : {
+      "put" : {
+        "tags" : [ "Individual Application" ],
+        "summary" : "Update Individual Application Request status",
+        "description" : "Returns Individual Application Response object. Individual Application ID should be UUID.",
+        "operationId" : "updateAccountHolder",
+        "parameters" : [ {
+          "name" : "ifiID",
+      "description" : "ID of the IFI (on-boarded organization) under which the Individual Application Request Status is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "applicationID",
+      "description" : "ID of the Application for which the Individual Application Request Status is being updated.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "newStatus",
+      "description" : "Status to be updated in Individual Application Request.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "PROCESSING", "PENDING_ON_USER_ACTION", "IN_REVIEW", "REJECTED", "APPROVED", "DELETED" ]
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "object"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "Individual Application Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountHolderApplicationResponse"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://api.stage.zeta.in",
+          "variables" : { }
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "VectorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "vectorID" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "verified" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "CreateVectorRequest" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "verified" : {
+            "type" : "boolean"
+          }
+        }
+      },
+    "AccountHolder": {
+      "type": "object",
+      "properties": {
+        "accountHolderProviderID": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "ifiID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "kycstatus": {
+          "$ref": "#/components/schemas/KYCStatus"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "middleName": {
+          "type": "string"
+        },
+        "mothersMaidenName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "profilePicURL": {
+          "type": "string"
+        },
+        "requestID": {
+          "type": "string"
+        },
+        "salutation": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "REAL",
+            "LEGAL",
+            "HEADLESS"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "vectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/AccountHolderVector"
+          }
+        }
+      },
+      "title": "AccountHolder"
+    },
+    "KYCStatus": {
+      "type": "object",
+      "properties": {
+        "accountHolderID": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "expiryTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ifiID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "kycStatus": {
+          "type": "string"
+        },
+        "kycStatusPostExpiry": {
+          "type": "string"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "KYCStatus"
+    },
+    "AccountHolderVector": {
+      "type": "object",
+      "properties": {
+        "accountHolderID": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+      
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "ifiID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "AccountHolderVector"
+    },
+      "GetAllAccountHoldersResponse": {
+      "type": "object",
+      "properties": {
+        "accountHolder": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/AccountHolder"
+          }
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetAllAccountHoldersResponse"
+      },
+
+      "AccountHolderApplicationResponse" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "formID" : {
+            "type" : "string"
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "spoolID" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "consumerEntityID" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string",
+            "enum" : [ "PROCESSING", "PENDING_ON_USER_ACTION", "IN_REVIEW", "REJECTED", "APPROVED", "DELETED" ]
+          },
+          "accountHolderID" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "salutation" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "middleName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "profilePicURL" : {
+            "type" : "string"
+          },
+          "dob" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "gender" : {
+            "type" : "string"
+          },
+          "mothersMaidenName" : {
+            "type" : "string"
+          },
+          "vectors" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/Vector"
+            }
+          },
+          "pops" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/POP"
+            }
+          },
+          "tags" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/Tag"
+            }
+          },
+          "kycDetails" : {
+            "$ref" : "#/components/schemas/KYCDetails"
+          },
+          "customFields" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "documentList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DocumentResponse"
+            }
+          },
+          "source" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Address" : {
+        "type" : "object",
+        "properties" : {
+          "line1" : {
+            "type" : "string"
+          },
+          "line2" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "state" : {
+            "type" : "string"
+          },
+          "postCode" : {
+            "type" : "string"
+          },
+          "country" : {
+            "type" : "string"
+          },
+          "latitude" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "longitude" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "Contact" : {
+        "type" : "object",
+        "properties" : {
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "vectors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Vector"
+            }
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "DocumentResponse" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "applicationID" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          },
+          "mediaType" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "subType" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "JsonArray" : {
+        "type" : "object",
+        "properties" : {
+          "asString" : {
+            "type" : "string"
+          },
+          "asBoolean" : {
+            "type" : "boolean"
+          },
+          "asInt" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "asNumber" : {
+            "type" : "number"
+          },
+          "asDouble" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "asFloat" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "asLong" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "asByte" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "asCharacter" : {
+            "type" : "string"
+          },
+          "asBigDecimal" : {
+            "type" : "number"
+          },
+          "asBigInteger" : {
+            "type" : "integer"
+          },
+          "asShort" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "asJsonPrimitive" : {
+            "$ref" : "#/components/schemas/JsonPrimitive"
+          },
+          "asJsonArray" : {
+            "$ref" : "#/components/schemas/JsonArray"
+          },
+          "asJsonObject" : {
+            "$ref" : "#/components/schemas/JsonObject"
+          },
+          "jsonArray" : {
+            "type" : "boolean"
+          },
+          "jsonObject" : {
+            "type" : "boolean"
+          },
+          "jsonPrimitive" : {
+            "type" : "boolean"
+          },
+          "jsonNull" : {
+            "type" : "boolean"
+          },
+          "asJsonNull" : {
+            "$ref" : "#/components/schemas/JsonNull"
+          }
+        }
+      },
+      "JsonNull" : {
+        "type" : "object",
+        "properties" : {
+          "asString" : {
+            "type" : "string"
+          },
+          "asBoolean" : {
+            "type" : "boolean"
+          },
+          "asInt" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "asJsonPrimitive" : {
+            "$ref" : "#/components/schemas/JsonPrimitive"
+          },
+          "asJsonArray" : {
+            "$ref" : "#/components/schemas/JsonArray"
+          },
+          "asJsonObject" : {
+            "$ref" : "#/components/schemas/JsonObject"
+          },
+          "jsonArray" : {
+            "type" : "boolean"
+          },
+          "jsonObject" : {
+            "type" : "boolean"
+          },
+          "jsonPrimitive" : {
+            "type" : "boolean"
+          },
+          "jsonNull" : {
+            "type" : "boolean"
+          },
+          "asJsonNull" : {
+            "$ref" : "#/components/schemas/JsonNull"
+          },
+          "asNumber" : {
+            "type" : "number"
+          },
+          "asDouble" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "asFloat" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "asLong" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "asByte" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "asCharacter" : {
+            "type" : "string"
+          },
+          "asBigDecimal" : {
+            "type" : "number"
+          },
+          "asBigInteger" : {
+            "type" : "integer"
+          },
+          "asShort" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "JsonObject" : {
+        "type" : "object",
+        "properties" : {
+          "asString" : {
+            "type" : "string"
+          },
+          "asBoolean" : {
+            "type" : "boolean"
+          },
+          "asInt" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "asJsonPrimitive" : {
+            "$ref" : "#/components/schemas/JsonPrimitive"
+          },
+          "asJsonArray" : {
+            "$ref" : "#/components/schemas/JsonArray"
+          },
+          "asJsonObject" : {
+            "$ref" : "#/components/schemas/JsonObject"
+          },
+          "jsonArray" : {
+            "type" : "boolean"
+          },
+          "jsonObject" : {
+            "type" : "boolean"
+          },
+          "jsonPrimitive" : {
+            "type" : "boolean"
+          },
+          "jsonNull" : {
+            "type" : "boolean"
+          },
+          "asJsonNull" : {
+            "$ref" : "#/components/schemas/JsonNull"
+          },
+          "asNumber" : {
+            "type" : "number"
+          },
+          "asDouble" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "asFloat" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "asLong" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "asByte" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "asCharacter" : {
+            "type" : "string"
+          },
+          "asBigDecimal" : {
+            "type" : "number"
+          },
+          "asBigInteger" : {
+            "type" : "integer"
+          },
+          "asShort" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "JsonPrimitive" : {
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "object",
+            "writeOnly" : true
+          },
+          "number" : {
+            "type" : "boolean"
+          },
+          "asString" : {
+            "type" : "string"
+          },
+          "string" : {
+            "type" : "boolean"
+          },
+          "asBoolean" : {
+            "type" : "boolean"
+          },
+          "boolean" : {
+            "type" : "boolean"
+          },
+          "asInt" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "asNumber" : {
+            "type" : "number"
+          },
+          "asDouble" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "asFloat" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "asLong" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "asByte" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "asCharacter" : {
+            "type" : "string"
+          },
+          "asBigDecimal" : {
+            "type" : "number"
+          },
+          "asBigInteger" : {
+            "type" : "integer"
+          },
+          "asShort" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "asJsonPrimitive" : {
+            "$ref" : "#/components/schemas/JsonPrimitive"
+          },
+          "asJsonArray" : {
+            "$ref" : "#/components/schemas/JsonArray"
+          },
+          "asJsonObject" : {
+            "$ref" : "#/components/schemas/JsonObject"
+          },
+          "jsonArray" : {
+            "type" : "boolean"
+          },
+          "jsonObject" : {
+            "type" : "boolean"
+          },
+          "jsonPrimitive" : {
+            "type" : "boolean"
+          },
+          "jsonNull" : {
+            "type" : "boolean"
+          },
+          "asJsonNull" : {
+            "$ref" : "#/components/schemas/JsonNull"
+          }
+        }
+      },
+      "KYCDetails" : {
+        "type" : "object",
+        "properties" : {
+          "kycStatus" : {
+            "type" : "string"
+          },
+          "updateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "expiryTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "kycStatusPostExpiry" : {
+            "type" : "string"
+          },
+          "authType" : {
+            "type" : "string"
+          },
+          "authData" : {
+            "$ref" : "#/components/schemas/JsonObject"
+          },
+          "kycAttributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "POP" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "aetherPopID" : {
+            "type" : "string"
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "label" : {
+            "type" : "string"
+          },
+          "accountHolderID" : {
+            "type" : "string"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/Address"
+          },
+          "contactList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Contact"
+            }
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "default" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "Tag" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "Vector" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "aetherID" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "verified" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "EditIndividualApplicationRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "formID" : {
+            "type" : "string"
+          },
+          "spoolID" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "individualID" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Tag"
+            }
+          },
+          "source" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UpdateVectorRequest" : {
+        "type" : "object",
+        "properties" : {
+          "vectorID" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "verified" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "KYCDetailsResponse" : {
+        "type" : "object",
+        "properties" : {
+          "kycStatus" : {
+            "type" : "string"
+          },
+          "updateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "expiryTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "kycStatusPostExpiry" : {
+            "type" : "string"
+          },
+          "kycAttributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "UpdateKycStatusRequest" : {
+        "type" : "object",
+        "properties" : {
+          "kycStatus" : {
+            "type" : "string"
+          },
+          "expiryTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "kycStatusPostExpiry" : {
+            "type" : "string"
+          },
+          "kycAttributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "CustomFieldResponse" : {
+        "type" : "object",
+        "properties" : {
+          "customFields" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          }
+        }
+      },
+      "AddCustomFieldRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "applicationID" : {
+            "type" : "string"
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "object"
+          }
+        }
+      },
+      "UpdateCustomFieldRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "applicationID" : {
+            "type" : "string"
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "oldKey" : {
+            "type" : "string"
+          },
+          "newKey" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "object"
+          }
+        }
+      },
+      "UploadDocumentEndpointResponse" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "postAction" : {
+            "type" : "string"
+          },
+          "acl" : {
+            "type" : "string"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "policy" : {
+            "type" : "string"
+          },
+          "successActionStatus" : {
+            "type" : "string"
+          },
+          "xamzAlgorithm" : {
+            "type" : "string"
+          },
+          "xamzCredential" : {
+            "type" : "string"
+          },
+          "xamzDate" : {
+            "type" : "string"
+          },
+          "xamzSignature" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CreateDocumentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "applicationID" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "subType" : {
+            "type" : "string"
+          },
+          "mediaType" : {
+            "type" : "string"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "location" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "etag" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UpdateDocumentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "applicationID" : {
+            "type" : "string"
+          },
+          "location" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "subType" : {
+            "type" : "string"
+          },
+          "mediaType" : {
+            "type" : "string"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "etag" : {
+            "type" : "string"
+          }
+        }
+      },
+      "DocumentListResponse" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "documentList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DocumentResponse"
+            }
+          }
+        }
+      },
+      "TagResponse" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "AddTagRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "UpdateTagRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "attributes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "TagListResponse" : {
+        "type" : "object",
+        "properties" : {
+          "tagList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TagResponse"
+            }
+          }
+        }
+      },
+      "AccountHolderApplicationListResponse" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "accountHolderApplicationList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AccountHolderApplicationResponse"
+            }
+          }
+        }
+      },
+      "CreateAccountHolderApplicationRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "formID" : {
+            "type" : "string"
+          },
+          "spoolID" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "accountHolderType" : {
+            "type" : "string"
+          },
+          "salutation" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "middleName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "profilePicURL" : {
+            "type" : "string"
+          },
+          "dob" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "gender" : {
+            "type" : "string"
+          },
+          "mothersMaidenName" : {
+            "type" : "string"
+          },
+          "kycDetails" : {
+            "$ref" : "#/components/schemas/KYCDetails"
+          },
+          "vectors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Vector"
+            }
+          },
+          "pops" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/POP"
+            }
+          },
+          "customFields" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Tag"
+            }
+          },
+          "source" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UpdateAccountHolderApplicationRequest" : {
+        "type" : "object",
+        "properties" : {
+          "headers" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "accountHolderApplicationID" : {
+            "type" : "string"
+          },
+          "ifiID" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "salutation" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "middleName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "profilePicURL" : {
+            "type" : "string"
+          },
+          "dob" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "gender" : {
+            "type" : "string"
+          },
+          "mothersMaidenName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Builder" : {
+        "type" : "object"
+      }
+    }
+  }
+}
