@@ -1,5 +1,5 @@
-[
-	{
+{
+	countries: [{
 		"name": "US",
 		"count": 300000
 	},
@@ -22,5 +22,5 @@
 	{
 		"name": "China",
 		"count": 81000
-	}
-]
+	}]
+}
